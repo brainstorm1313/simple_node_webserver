@@ -1,9 +1,11 @@
 var http = require("http");
+var url = require('url');
 
 function onRequest(request, response) {
     console.log("Request received.");
     response.writeHead(200, {"Content-Type": "text/plain"});
-    response.write("Привет!");
+    var urlParsed = url.parse(request.url, true);
+    response.write("Привет, "+urlParsed.query.name+'!');
     response.end();
 }
 
