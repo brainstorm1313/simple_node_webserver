@@ -4,13 +4,9 @@ var url = require('url');
 function start(route, handle) {
     function onRequest(request, response) {
         var urlParsed = url.parse(request.url, true);
-        console.log("Request received.");
+        console.log("Request for " + urlParsed.pathname + " received.");
 
-        route(handle, urlParsed.pathname);
-
-        response.writeHead(200, {"Content-Type": "text/plain"});
-        response.write("Привет, " + urlParsed.query.name + '!');
-        response.end();
+        route(handle, urlParsed.pathname, response);
     }
 
     http.createServer(onRequest).listen(2999);
